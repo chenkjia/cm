@@ -1,0 +1,32 @@
+<% for(i in list){%>
+  <% if(list[i].name === active[0]){ %>
+  <% active.shift(); %>
+  <% var status = true %>
+  <% } else { %>
+  <% var status = false %>
+  <% } %>
+  <li class="<%= list[i]['children']?'treeview':'' %> <%= status?'active':'' %>">
+    <% if(list[i]['children']){ %>
+      <a href="#">
+        <i class="fa fa-<%= list[i]['icon'] %>"></i>
+        <span><%= list[i]['label'] %></span>
+        <i class="fa pull-right"></i>
+      </a>
+      <ul class="treeview-menu <%= status?'menu-open':'' %>">
+        <%=
+          nav({
+            list:list[i]['children'],
+            nav:nav,
+            layout:'sub',
+            active:active
+          })
+        %>
+      </ul>
+    <% } else{ %>
+      <a href="#<%= list[i]['url'] %>">
+        <i class="fa fa-<%= list[i]['icon'] %>"></i>
+        <span><%= list[i]['label'] %></span>
+      </a>
+    <% } %>
+  </li>
+<% } %>

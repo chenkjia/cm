@@ -1,0 +1,6 @@
+#nav li>a>i.pull-right:before{
+  content: "\E257";
+}
+#nav li.active>a>i.pull-right:before{
+  content: "\E259";
+}

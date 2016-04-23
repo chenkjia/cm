@@ -1,0 +1,62 @@
+<form id="popup-form" role="form" action="<%= action %>" method="post" class="form-horizontal">
+  <% if(data.id){ %>
+    <input name="id" type="text" value="<%= data.id %>" style="display:none;"/>
+  <% } %>
+  <% for(i in columns){ %>
+    <% var item = columns[i]; %>
+    <div class="form-group row" style="<%= item.popup.disabled?'display:none;':''%>">
+      <label class="control-label col-md-4">
+        <% if(item.popup.rule&&item.popup.rule.required){ %>
+          <span class="required">*</span>
+        <% } %>
+        <%= item.title %>
+      </label>
+      <div class="col-md-8">
+        <% if(item.popup.type==='input'){ %>
+          <input name="<%= item.data %>" type="text" value="<%= data[item.data] %>" class="form-control"/>
+        <% } else if(item.popup.type==='select'){ %>
+          <select name="<%= item.data %>" class="form-control form-select">
+            <% if(data[item.data]===undefined){ %>
+              <option value="" >
+                请选择...
+              </option>
+            <% } %>
+            <% for(j in item.options){ %>
+              <% if(item.options[j].value===data[item.data]){ %>
+              <option value="<%= item.options[j].value %>" data-subtext="<%= item.options[j].subtext %>" selected>
+              <% } else { %>
+              <option value="<%= item.options[j].value %>" data-subtext="<%= item.options[j].subtext %>" >
+              <% } %>
+                <%= item.options[j].label %>
+              </option>
+            <% } %>
+          </select>
+        <% } else if(item.popup.type==='radio'){ %>
+          <div class="radio-list">
+            <% for(j in item.options){ %>
+              <label class="radio-inline">
+                <% if(item.options[j].value===data[item.data]){ %>
+                <input class="form-radio" type="radio" name="<%= item.data %>" value="<%= item.options[j].value %>" checked>
+                <% } else { %>
+                <input class="form-radio" type="radio" name="<%= item.data %>" value="<%= item.options[j].value %>">
+                <% } %>
+                <%= item.options[j].label %> 
+              </label>
+            <% } %>
+          </div>
+        <% } else if(item.popup.type==='switch'){ %>
+          <% if(data[item.data]===item.options[0].value){%>
+            <input name="<%= item.data %>" type="checkbox" value="<%= item.options[0].value %>" class="form-switch" data-on-color="<%= item.options[0].color %>" data-off-color="<%= item.options[1].color %>" data-on-text="<%= item.options[0].label %>" data-off-text="<%= item.options[1].label %>" checked />
+            <input class="form-switch-off" name="<%= item.data %>" type="checkbox" value="<%= item.options[1].value %>" style="display:none;" />
+          <%} else{ %>
+            <input name="<%= item.data %>" type="checkbox" value="<%= item.options[0].value %>" class="form-switch" data-on-color="<%= item.options[0].color %>" data-off-color="<%= item.options[1].color %>" data-on-text="<%= item.options[0].label %>" data-off-text="<%= item.options[1].label %>" />
+            <input class="form-switch-off" name="<%= item.data %>" type="checkbox" value="<%= item.options[1].value %>" style="display:none;" checked />
+          <%} %>
+        <% } %>
+        <% if(item.popup.help){ %>
+          <span class="help" style="display:none;"><%= item.popup.help %></span>
+        <% } %>
+      </div>
+    </div>
+  <%}%>
+</form>

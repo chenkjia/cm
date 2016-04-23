@@ -1,0 +1,20 @@
+<% var batchlist = [{label:'编辑',name:'update',icon:'edit'},{label:'删除',name:'delete',icon:'trash-o'}] %>
+<% batchlist = _.filter(batchlist,function(item){return batch.indexOf(item['name'])>=0;}) %>
+<% batchlist = _.concat(batchlist,cuntomBatch); %>
+
+<div class="btn-group">
+  <div data-toggle="dropdown" aria-expanded="true" class="btn green dropdown-toggle">
+    <span>批量操作</span>
+    <i class="fa fa-caret-down"></i>
+  </div>
+  <ul class="dropdown-menu">
+    <% for(i in batchlist){ %>
+      <li>
+        <a class="table-batch-<%= batchlist[i].name %>-btn" href="javascript:;">
+          <i class="fa fa-<%= batchlist[i].icon %>"></i> 批量<%= batchlist[i].label %>
+        </a>
+      </li>
+    
+    <% } %>
+  </ul>
+</div>

@@ -1,0 +1,13 @@
+<% var operatlist = [{label:'查看',name:'watch',icon:'eye'},{label:'编辑',name:'update',icon:'edit'},{label:'删除',name:'delete',icon:'trash-o'}] %>
+<% operatlist = _.filter(operatlist,function(item){return operation.indexOf(item['name'])>=0;}) %>
+
+<% if(cuntomOperation){ %>
+<% operatlist = _.concat(operatlist,cuntomOperation) %>
+<% } %>
+
+<% for(i in operatlist){ %>
+<span class="table-operation-<%= operatlist[i].name %>-btn btn btn-default btn-xs" data-row="<%= row %>">
+  <i class="fa fa-<%= operatlist[i].icon %>"></i>
+  <%= operatlist[i].label %>
+</span>
+<% } %>

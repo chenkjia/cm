@@ -1,0 +1,10 @@
+{
+  "apps": [
+    {
+      "serverURL": "http://localhost:1337",
+      "appId": "cm",
+      "masterKey": "CommunityManagement",
+      "appName": "cm"
+    }
+  ]
+}

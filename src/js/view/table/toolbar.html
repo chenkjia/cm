@@ -1,0 +1,11 @@
+<% var toolbarlist = [{label:'添加新'+label,name:'create',icon:'plus'}] %>
+
+<% toolbarlist = _.filter(toolbarlist,function(item){return toolbar.indexOf(item['name'])>=0;}) %>
+
+
+<% for(i in toolbarlist){ %>
+<div class="table-toolbar-create-btn btn green">
+  <%= toolbarlist[i].label %>
+  <i class="fa fa-<%= toolbarlist[i].icon %>"></i>
+</div>
+<% } %>
