@@ -8,7 +8,7 @@ module.exports = {
   functionlist : ['toolbar','batch','operation'],
   initialize: function(){
     var settings = this.settings;
-    var tpl = _.template('<table id="table"></table>');
+    var tpl = _.template('<table id="table"class="table table-hover"></table>');
     $('#main').html(tpl());
     settings.columns = this.columnsInit(settings);
     this.render(settings);
@@ -36,7 +36,13 @@ module.exports = {
       responseHandler:function(data) {
         return data.results
       },
-      columns: settings.columns
+      toolbar:toolbarTpl({
+        label:settings.label,
+        toolbar:settings.toolbar
+      }),
+      showColumns:true,
+      pageList:[10, 25, 50, 100, 'All'],
+      columns: settings.columns,
     })
     // this.table = $('#table').bootstrapTable({
     //   ajax: {

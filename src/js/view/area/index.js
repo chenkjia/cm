@@ -3,7 +3,7 @@ var operationTpl = require('../table/operation.html');
 module.exports = {
   view: Backbone.View.extend(Table.view({
     name: 'area',
-    label: '群组',
+    label: '片区',
     sort: true,
     toolbar: ['create'],
     operation: ['update','delete'],

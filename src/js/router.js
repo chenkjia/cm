@@ -16,7 +16,21 @@ var routes = Backbone.Router.extend({
     ':nav/:subnav/:trinav': 'changeView',
   },
   logout:function () {
-    location.href="/";
+    $.ajax({
+      url: Common.url+'logout',
+      type: 'POST',
+      dataType: 'json',
+      headers:{
+        "X-Parse-Session-Token":$.cookie('sessionToken')
+      }
+    })
+    .done(function(data) {
+      $.removeCookie('sessionToken');
+      location.href="/login.html";
+    })
+    .fail(function() {
+      console.log("error");
+    });
   },
   homeView: function () {
     this.changeView('area');

@@ -3,7 +3,7 @@ var operationTpl = require('../table/operation.html');
 module.exports = {
   view: Backbone.View.extend(Table.view({
     name: 'building',
-    label: '群组',
+    label: '楼房',
     sort: true,
     toolbar: ['create'],
     operation: ['update','delete'],
@@ -15,8 +15,8 @@ module.exports = {
     },
     columnsPure:[
       {
-        data: "name",
-        title: "群组名称",
+        field: "name",
+        title: "楼房名称",
         create: true,
         update: true,
         popup:{

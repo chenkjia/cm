@@ -3,15 +3,10 @@ var operationTpl = require('../table/operation.html');
 module.exports = {
   view: Backbone.View.extend(Table.view({
     name: 'person',
-    label: '群组',
+    label: '住民',
     sort: true,
     toolbar: ['create'],
     operation: ['update','delete'],
-    url:{
-      list: 'router/connector/group-table.json',
-      create: 'create',
-      update: 'update',
-    },
     popup:{
       size: null
     },
@@ -20,8 +15,8 @@ module.exports = {
     },
     columnsPure:[
       {
-        data: "name",
-        title: "群组名称",
+        field: "name",
+        title: "住民名称",
         create: true,
         update: true,
         popup:{

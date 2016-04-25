@@ -12,6 +12,10 @@ require('./js/libs/reset');
 var nav = require('./js/view/nav');
 var Router = require('./js/router');
 
-new Router();
-Backbone.history.start({hashChange:true});
-nav.init();
+if ($.cookie('sessionToken')){
+  new Router();
+  Backbone.history.start({hashChange:true});
+  nav.init();
+}else{
+  location.href="/login.html";
+}
