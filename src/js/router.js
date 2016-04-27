@@ -1,7 +1,10 @@
 var Common = require('./common');
 var navs = require('./view/nav');
 var r = {
-  dev:require('./view/dev'),
+  area:require('./view/area'),
+  building:require('./view/building'),
+  household:require('./view/household'),
+  person:require('./view/person'),
   user:require('./view/user')
 }
 var routes = Backbone.Router.extend({
@@ -28,7 +31,7 @@ var routes = Backbone.Router.extend({
     });
   },
   homeView: function () {
-    this.changeView('dev');
+    this.changeView('area');
   },
   changeView:function (nav,subnav,trinav) {
     var page;
@@ -52,15 +55,8 @@ var routes = Backbone.Router.extend({
   },
   renderNav:function(page) {
     $.cookie('activePage',page);
-    $('#page-title').html(this.title(page,navs.list));
     $('#nav li').removeClass('active open');
     $('a[href="#'+page+'"]').parents('li').addClass('active');
-  },
-  title:function(url,list) {
-    var item = _.find(list,function(item){
-      return item.url === url;
-    });
-    return item.label;
   }
 });
 module.exports = routes;

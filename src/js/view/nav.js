@@ -38,11 +38,32 @@ module.exports = {
     return list;
   },
   list: [{
+    id: "1",
+    pid: "0",
+    name: 'area',
+    icon: 'globe',
+    label: '区域管理',
+    url: 'area'
+  },{
     id: "2",
     pid: "0",
-    name: 'dev',
-    icon: 'hdd-o',
-    label: '设备管理',
-    url: 'dev'
+    name: 'building',
+    icon: 'building-o',
+    label: '楼房管理',
+    url: 'building'
+  },{
+    id: "3",
+    pid: "0",
+    name: 'household',
+    icon: 'users',
+    label: '住户管理',
+    url: 'household'
+  },{
+    id: "4",
+    pid: "0",
+    name: 'person',
+    icon: 'user',
+    label: '住民管理',
+    url: 'person'
   }]
 };

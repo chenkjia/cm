@@ -8,6 +8,7 @@ module.exports = {
   functionlist : ['toolbar','batch','operation'],
   initialize: function(){
     var settings = this.settings;
+    $('#page-title').html(settings.name);
     var tpl = _.template('<form id="table-filter"><table id="table"></table></form>');
     $('#main').html(tpl());
     settings.columns = this.columnsInit(settings);

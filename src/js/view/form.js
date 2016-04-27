@@ -4,6 +4,7 @@ module.exports = {
   initialize: function(){
     var settings = this.settings;
     settings.columns = this.columnsInit(settings);
+    $('#page-title').html(settings.name);
     this.formInit(settings);
   },
   events:{
