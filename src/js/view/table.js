@@ -8,85 +8,55 @@ module.exports = {
   functionlist : ['toolbar','batch','operation'],
   initialize: function(){
     var settings = this.settings;
-    var tpl = _.template('<table id="table"class="table table-hover"></table>');
+    var tpl = _.template('<form id="table-filter"><table id="table"></table></form>');
     $('#main').html(tpl());
     settings.columns = this.columnsInit(settings);
     this.render(settings);
+    $('.table-scrollable').css('min-height',$(window).height()-224);
   },
   render: function(settings) {
     var that = this;
     this.settings.key = this.settings.key||'name';
-    $.ajax({
-      url: Common.url +'classes/'+ settings.name,
-      type: 'get',
-      dataType: 'json'
-    })
-    .done(function(data) {
-      console.log(data);
-      console.log("success");
-    })
-    .fail(function() {
-      console.log("error");
-    })
-    .always(function() {
-      console.log("complete");
-    });
-    this.table = $('#table').bootstrapTable({
-      url: Common.url +'classes/'+ settings.name,
-      responseHandler:function(data) {
-        return data.results
+    this.table = $('#table').dataTable({
+      ajax: {
+        url: Common.url + settings.url.list,
+        dataSrc: 'results'
       },
-      toolbar:toolbarTpl({
-        label:settings.label,
-        toolbar:settings.toolbar
-      }),
-      showColumns:true,
-      pageList:[10, 25, 50, 100, 'All'],
       columns: settings.columns,
-    })
-    // this.table = $('#table').bootstrapTable({
-    //   ajax: {
-    //     url: Common.url + settings.url.list,
-    //     dataSrc: 'data'
-    //   },
-    //   fixedHeader: {
-    //     header: false,
-    //     footer: true
-    //   },
-    //   columns: settings.columns,
-    //   initComplete: function() {
-    //     that.filterInit(this.api().columns());
-    //     $('#table .group-checkable,.ColVis_collection input').uniform();
-    //     if (settings.toolbar) {
-    //       $('#table_wrapper .dataTables-toolbar').html(toolbarTpl({
-    //         label:settings.label,
-    //         toolbar:settings.toolbar
-    //       }));
-    //     }
-    //     if (settings.batch||settings.cuntomBatch) {
-    //       $('#table').addClass('table-checkable');
-    //       $('#table_wrapper .dataTables-batch').html(batchTpl({
-    //         batch:settings.batch||[],
-    //         cuntomBatch:settings.cuntomBatch||[]
-    //       }));
-    //     }
-    //   },
-    //   drawCallback: function() {
-    //     Common.uniCheckbox($(this).find('.checkboxes'));
-    //     if (that.settings.tooltip===true) {
-    //       $('#table .table-tooltip').popover({
-    //         trigger: 'hover',
-    //         placement: 'top',
-    //         container: 'body',
-    //       });
-    //     }
-    //     if (that.settings.switch===true) {
-    //       $('#table .table-switch').bootstrapSwitch({
-    //         size: 'mini'
-    //       });
-    //     }
-    //   }
-    // });
+      initComplete: function() {
+        that.filterInit(this.api().columns());
+        $('#table .group-checkable,.ColVis_collection input').uniform();
+        if (settings.toolbar) {
+          $('#table_wrapper .dataTables-toolbar').html(toolbarTpl({
+            label:settings.label,
+            toolbar:settings.toolbar
+          }));
+        }
+        if (settings.batch||settings.cuntomBatch) {
+          $('#table').addClass('table-checkable');
+          $('#table_wrapper .dataTables-batch').html(batchTpl({
+            batch:settings.batch||[],
+            cuntomBatch:settings.cuntomBatch||[]
+          }));
+        }
+      },
+      drawCallback: function() {
+        Common.uniCheckbox($(this).find('.checkboxes'));
+        $('#table_wrapper [name="table_length"]').selectpicker({width:'auto'});
+        if (that.settings.tooltip===true) {
+          $('#table .table-tooltip').popover({
+            trigger: 'hover',
+            placement: 'top',
+            container: 'body',
+          });
+        }
+        if (that.settings.switch===true) {
+          $('#table .table-switch').bootstrapSwitch({
+            size: 'mini'
+          });
+        }
+      }
+    });
   },
   events:function(settings) {
     var events = settings.customEvents||{};
@@ -115,7 +85,6 @@ module.exports = {
           className: 'green',
           callback: function(event) {
             $('#popup-form').submit();
-            return false;
           }
         }
       }
@@ -157,6 +126,7 @@ module.exports = {
       }
     });
     var form = $('#popup-form');
+    var that = this;
     return form.validate({
       errorElement: 'span',
       errorClass: 'help-block',
@@ -170,8 +140,14 @@ module.exports = {
         $(element).closest('.form-group').removeClass('has-error');
       },
       submitHandler: function() {
-        $.getJSON(form.attr('action')+'&'+form.serialize(), function(data) {
-          console.log(data);
+        $.ajax({
+          url: form.attr('action'),
+          type: form.attr('method'),
+          dataType: 'json',
+          data: Common.formFormat(form.serializeArray()),
+        })
+        .done(function(data) {
+          that.table.api().ajax.reload(null,false);
         });
         return false;
       }
@@ -197,6 +173,7 @@ module.exports = {
       this.popup({
         size: this.settings.popup.size,
         title:'添加新'+this.settings.label,
+        method: 'post',
         action: Common.url + this.settings.url.create,
         columns:columns,
         data:{},
@@ -212,27 +189,32 @@ module.exports = {
       this.popup({
         size: this.settings.popup.size,
         title:'编辑'+this.settings.label+'【'+data[this.settings.key]+'】',
-        action:  Common.url + this.settings.url.update,
-        columns:columns,
-        data:data,
+        method: 'put',
+        action:  Common.url + this.settings.url.update + '/'+data.objectId,
+        columns: columns,
+        data: data,
       });
     },
     delete: function (event) {
       var data = this.rowData(event);
-      bootbox.dialog({
-        message: '确定要删除'+this.settings.label+'【'+data[this.settings.key]+'】吗？',
-        buttons: {
-          cancel: {
-            label: '取消'
-          },
-          delete: {
-            label: "删除",
-            className: "btn-danger",
-            callback: function() {
-              console.log(data);
-            }
-          }
-        }
+      var that = this;
+      swal({
+        title: '确定要删除吗？',
+        text: '确定要删除'+this.settings.label+'【'+data[this.settings.key]+'】吗？',
+        type: "warning",
+        showCancelButton: true,
+        cancelButtonText: "不, 别删除!",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "是的, 删除!"
+      }, function(){
+        $.ajax({
+          url: Common.url + that.settings.url.delete + '/'+data.objectId,
+          type: 'DELETE',
+          dataType: 'json'
+        })
+        .done(function() {
+          that.table.api().ajax.reload(null,false);
+        })
       });
     },
   },
@@ -249,7 +231,7 @@ module.exports = {
   columnsInit:function(settings) {
     var columns = _.clone(settings.columnsPure);
     _.map(columns,function (column) {
-      column['name'] = column['field'];
+      column['name'] = column['data'];
       if(column.option&&!column.options){
         $.ajax({
           url:  Common.url + column.option.url,
@@ -306,21 +288,21 @@ module.exports = {
         title: '序号',
         searchable: false,
         className: 'text-center',
-        formatter: function(value, row, index) {
-          return index+1;
+        render: function(data, type, full, meta) {
+          return meta.row + 1;
         }
       });
     }
     if((settings.batch||settings.cuntomBatch)&&_.findIndex(columns,['name','checkbox'])==-1){
       columns.unshift({
         name: 'checkbox',
-        data: 'objectId',
+        data: 'id',
         noVis: true,
         title: '<input type="checkbox" class="group-checkable" data-set="#table tr td:first-child .checkboxes"/>',
         searchable: false,
         className: 'text-center',
-        formatter: function(value, row, index) {
-          return '<input type="checkbox" class="checkboxes" value="' + value + '"/>';
+        render: function(data, type, full, meta) {
+          return '<input type="checkbox" class="checkboxes" value="' + data + '"/>';
         }
       });
     }
@@ -328,10 +310,14 @@ module.exports = {
       columns.push({
         name: "operation",
         title: "操作",
-        formatter: function(value, row, index) {
+        noVis: true,
+        filter:{
+          type: 'button'
+        },
+        render: function(data, type, full, meta) {
           return operationTpl({
             operation:settings.operation||[],
-            row:index,
+            row:meta.row,
             cuntomOperation:settings.cuntomOperation||[]
           });
         }

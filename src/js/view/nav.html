@@ -1,18 +1,18 @@
 <% for(i in list){%>
   <% if(list[i].name === active[0]){ %>
   <% active.shift(); %>
-  <% var status = true %>
+  <% var status = 'active open' %>
   <% } else { %>
-  <% var status = false %>
+  <% var status = '' %>
   <% } %>
-  <li class="<%= list[i]['children']?'treeview':'' %> <%= status?'active':'' %>">
+  <li class="nav-item <%= status %>">
     <% if(list[i]['children']){ %>
-      <a href="#">
+      <a class="nav-link nav-toggle" href="javascript:;">
         <i class="fa fa-<%= list[i]['icon'] %>"></i>
-        <span><%= list[i]['label'] %></span>
-        <i class="fa pull-right"></i>
+        <span class="title"><%= list[i]['label'] %></span>
+        <span class="arrow <%= status %>"></span>
       </a>
-      <ul class="treeview-menu <%= status?'menu-open':'' %>">
+      <ul class="sub-menu">
         <%=
           nav({
             list:list[i]['children'],
@@ -23,9 +23,9 @@
         %>
       </ul>
     <% } else{ %>
-      <a href="#<%= list[i]['url'] %>">
+      <a class="nav-link" href="#<%= list[i]['url'] %>">
         <i class="fa fa-<%= list[i]['icon'] %>"></i>
-        <span><%= list[i]['label'] %></span>
+        <span class="title"><%= list[i]['label'] %></span>
       </a>
     <% } %>
   </li>

@@ -12,7 +12,7 @@ module.exports = {
   entry: {
     app: path.resolve(APP_PATH, 'app.js'),
     login: path.resolve(APP_PATH, 'login.js'),
-    vendors: ['jquery','moment','bootstrap','backbone','lodash','jquery.cookie','jquery-validation','pinyin']
+    vendors: ['jquery','moment','bootstrap','bootbox','backbone','lodash','datatables','jquery.cookie','jquery-validation','pinyin','bootstrap-select','bootstrap-switch','bootstrap-daterangepicker','sweetalert']
   },
   output: {
     path: BUILD_PATH,
@@ -59,10 +59,12 @@ module.exports = {
       $: 'jquery',
       jQuery: 'jquery',
       "window.jQuery": 'jquery',
+      bootbox: 'bootbox',
       backbone: 'backbone',
       _: 'lodash',
+      pinyin:'pinyin',
       moment:'moment',
-      pinyin:'pinyin'
+      swal:'sweetalert',
     }),
     new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
   ]

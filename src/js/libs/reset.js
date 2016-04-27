@@ -1,16 +1,25 @@
 // bootbox
-// bootbox.setDefaults({  
-//   locale: "zh_CN",  
-//   // show: true,  
-//   backdrop: true, 
-//   animate: false, 
-// });
+bootbox.setDefaults({  
+  locale: "zh_CN",  
+  // show: true,  
+  backdrop: true, 
+  animate: false, 
+});
+
 $.ajaxSetup({
+  cache: true,
   headers:{
     "X-Parse-Application-Id":"cm"
   }
 });
-
+$(document).ajaxError(function(event, jqxhr, settings, thrownError) {
+  swal({
+    title: jqxhr.responseJSON.code||jqxhr.responseJSON.error,
+    text: jqxhr.responseJSON.error,
+    type: "error",
+    confirmButtonText: "确认" 
+  });
+});
 // validator
 $.extend($.validator.messages, {  
     required: "必选字段",   

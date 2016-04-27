@@ -1,6 +1,141 @@
-#nav li>a>i.pull-right:before{
-  content: "\E257";
+
+.page-sidebar-closed .page-header.navbar .page-logo a{
+  display: none;
 }
-#nav li.active>a>i.pull-right:before{
-  content: "\E259";
+.page-logo a{
+  color:#eee;
+  line-height: 46px;
+  font-size: 18px;
+}
+.page-logo a:hover{
+  text-decoration: none;
+}
+.page-header .menu-toggler{
+  color:#b4bcc8;
+  font-size: 18px;
+  text-align: center;
+}
+.sweet-alert .sa-icon{
+  -webkit-border-radius: 40px!important;
+  border-radius: 40px!important;
+  border-radius: 50%!important;
+}
+.help{
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #737373;
+}
+.table .table{
+  margin-bottom: 0;
+}
+.DTS .table-scrollable, .table-scrollable.table-scrollable-borderless, .table-scrollable>.table-bordered{
+  border-bottom: 1px solid #ddd;
+}
+.dataTables_empty{
+  text-align: center;
+}
+.dataTables-toolbar,.dataTables-batch{
+  float: left;
+  margin-right: 6px;
+}
+.table-filter{
+  margin: 8px -8px 0;
+  padding: 8px 8px 0;
+  height: 38px;
+  white-space: nowrap;
+  border-top: 1px solid #ddd;
+}
+.table-filter .form-filter{
+  width: 120px;
+}
+.table-filter .date-filter{
+  width: 200px;
+}
+.table-filter .input-group-addon{
+  border-left:0;
+  border-right:0;
+}
+.table-filter .select-sm .btn{
+  padding: 4px 8px;
+}
+.table-filter .select-sm .dropdown-menu {
+  margin-top: -4px;
+}
+.bootstrap-select.form-control{
+  height: auto;
+}
+.bootstrap-select.btn-group>.btn{
+  float:inherit;
+}
+/*
+.table-checkable tr>td:first-child .table-filter, .table-checkable tr>th:first-child .table-filter{
+  margin: 8px 0px 0px;
+}*/
+div.ColVis {
+	float: right;
+	margin-bottom: 1em;
+}
+ul.ColVis_collection{
+  max-height: 400px;
+  overflow: auto;
+	z-index: 1200;
+}
+
+ul.ColVis_collection li {
+	position: relative;
+	height: auto;
+	left: 0;
+	right: 0;
+	text-align: left;
+}
+
+ul.ColVis_collection li label {
+  padding: 8px 16px;
+  line-height: 18px;
+	display: block;
+	float: none;
+	background: #ffffff;
+	cursor: pointer;
+}
+
+ul.ColVis_collection li label:hover {
+	background-color: #f0f0f0;
+}
+
+ul.ColVis_collection li span {
+	display: inline-block;
+	padding-left: 0.5em;
+}
+
+
+ul.ColVis_collection li.ColVis_Special {
+	border-color: #555;
+	background: rgb(237,237,237);
+}
+
+ul.ColVis_collection li.ColVis_Special:hover {
+	background: #e2e2e2;
+}
+span.ColVis_radio {
+	display: inline-block;
+	width: 20px;
+}
+
+div.ColVis_catcher {
+	position: absolute;
+	z-index: 1101;
+}
+
+.disabled {
+	color: #999;
+}
+div.ColVis_collectionBackground {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: black;
+	z-index: 1100;
 }

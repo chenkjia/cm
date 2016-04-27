@@ -1,79 +1,67 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Dashboard</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>鸿雁运维管理系统</title>
   </head>
-  <body class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper">
-      <header class="main-header">
-        <!-- Logo -->
-        <a href="/" class="logo">
-          <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>鸿雁</b></span>
-          <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>鸿雁网络行为管理系统</b></span>
-        </a>
-        <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top" role="navigation">
-          <!-- Sidebar toggle button-->
-          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-          </a>
-          <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-              <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-user"></i>
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <ul class="menu">
-                      <li>
-                        <a href="#user/password">
-                          <i class="fa fa-lock"></i>修改密码
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#logout">
-                          <i class="fa fa-sign-out"></i>退出
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
+  <body class="page-header-fixed page-quick-sidebar-over-content page-sidebar-closed-hide-logo">
+    <div id="header" class="page-header navbar navbar-fixed-top">
+      <div class="page-header-inner">
+        <div class="page-logo">
+            <a href="index.html">
+                <img class="logo-default" src="../src/img/logo.png" /> </a>
+            <div class="menu-toggler sidebar-toggler"><i class="fa fa-align-justify"></i></div>
+        </div>
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-align-justify"></i></a>
+        <div class="top-menu">
+          <ul class="nav navbar-nav pull-right">
+            <li class="dropdown dropdown-user">
+              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <i class="fa fa-user"></i>
+                <span class="username username-hide-on-mobile"> 管理员 </span>
+                <i class="fa fa-angle-down"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-default">
+                <li>
+                  <a href="/#user/password">
+                    <i class="fa fa-lock"></i> 修改密码 </a>
+                </li>
+                <li>
+                  <a href="/#logout">
+                    <i class="fa fa-sign-out"></i> 退出 </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div id="container" class="page-container">
+      <div class="page-sidebar-wrapper">
+        <div class="page-sidebar navbar-collapse collapse">
+          <div class="slimScrollDiv">
+            <ul id="nav" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" class="page-sidebar-menu page-header-fixed">
+              <!-- <li class="sidebar-search-wrapper">
+                <div class="sidebar-search"><a href="javascript:;" class="remove"><i class="icon-close"></i></a>
+                  <div class="input-group">
+                    <input id="nav-search" type="text" placeholder="搜索..." class="form-control"><span class="input-group-btn">
+                      <div class="btn submit"><i class="fa fa-search"></i></div></span>
+                  </div>
+                </div>
+              </li> -->
             </ul>
           </div>
-        </nav>
-      </header>
-      <!-- Left side column. contains the logo and sidebar -->
-      <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-          <!-- /.search form -->
-          <!-- sidebar menu: : style can be found in sidebar.less -->
-          <ul id="nav" class="sidebar-menu">
-          </ul>
-        </section>
-        <!-- /.sidebar -->
-      </aside>
-
-      <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-          <h1 id="page-title">
-          </h1>
-        </section>
-
-        <section id="main" class="content">
-        </section>
+        </div>
+      </div>
+      <div class="page-content-wrapper">
+        <div class="page-content clearfix">
+          <h3 id="page-title" class="page-title"></h3>
+          <div id="main"></div>
+        </div>
       </div>
     </div>
   </body>

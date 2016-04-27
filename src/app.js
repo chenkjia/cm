@@ -1,21 +1,33 @@
-require('bootstrap/dist/css/bootstrap.min.css');
-require('bootstrap-table/dist/bootstrap-table.min.css');
+
+
+// require('./css/font-awesome.min.css');
+// require('./css/bootstrap.min.css');
+// require('./css/bootstrap-select.min.css');
+// require('./css/bootstrap-switch.min.css');
+// require('./css/daterangepicker.min.css');
+
 require('font-awesome/css/font-awesome.min.css');
-require('./css/app.min.css');
-require('./css/theme.min.css');
+require('bootstrap/dist/css/bootstrap.min.css');
+require('sweetalert/dist/sweetalert.css');
+
+require('./css/bootstrap-select.min.css');
+require('./css/bootstrap-switch.min.css');
+require('./css/uniform.default.css');
+
+require('./css/components.min.css');
+require('./css/plugins.min.css');
+require('./css/layout.min.css');
+require('./css/darkblue.min.css');
 require('./css/style.css');
 
-require('bootstrap-table/dist/bootstrap-table.min');
-require('./js/libs/app.min');
+require('./js/libs/jquery.uniform.min');
+require('./js/libs/layout.min');
+require('./js/libs/dataTables.colVis');
+require('./js/libs/datatables.bootstrap');
 require('./js/libs/reset');
-
 var nav = require('./js/view/nav');
 var Router = require('./js/router');
 
-if ($.cookie('sessionToken')){
-  new Router();
-  Backbone.history.start({hashChange:true});
-  nav.init();
-}else{
-  location.href="/login.html";
-}
+new Router();
+Backbone.history.start({hashChange:true});
+nav.init();

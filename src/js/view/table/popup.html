@@ -1,7 +1,4 @@
-<form id="popup-form" role="form" action="<%= action %>" method="post" class="form-horizontal">
-  <% if(data.id){ %>
-    <input name="id" type="text" value="<%= data.id %>" style="display:none;"/>
-  <% } %>
+<form id="popup-form" role="form" action="<%= action %>" method="<%= method %>" class="form-horizontal">
   <% for(i in columns){ %>
     <% var item = columns[i]; %>
     <div class="form-group row" style="<%= item.popup.disabled?'display:none;':''%>">

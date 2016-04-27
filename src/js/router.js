@@ -1,10 +1,8 @@
 var Common = require('./common');
 var navs = require('./view/nav');
 var r = {
-  area:require('./view/area/index'),
-  building:require('./view/building/index'),
-  household:require('./view/household/index'),
-  person:require('./view/person/index')
+  dev:require('./view/dev'),
+  user:require('./view/user')
 }
 var routes = Backbone.Router.extend({
   currentView: null,
@@ -27,13 +25,10 @@ var routes = Backbone.Router.extend({
     .done(function(data) {
       $.removeCookie('sessionToken');
       location.href="/login.html";
-    })
-    .fail(function() {
-      console.log("error");
     });
   },
   homeView: function () {
-    this.changeView('area');
+    this.changeView('dev');
   },
   changeView:function (nav,subnav,trinav) {
     var page;

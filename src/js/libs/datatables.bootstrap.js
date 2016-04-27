@@ -1,6 +1,6 @@
 /* Set the defaults for DataTables initialisation */
 $.extend(true, $.fn.dataTable.defaults, {
-    dom: 'C<"dataTables-toolbar"><"dataTables-batch">rtpli',
+    dom: 'C<"dataTables-toolbar"><"dataTables-batch">r<"table-scrollable"t>pli',
     // dom: 'C<"dataTables-toolbar"><"dataTables-batch">rtpli',
     // "dom": "<'row'<'col-md-6 col-sm-6'l><'col-md-6 col-sm-6'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-5'i><'col-md-7 col-sm-7'p>>", // default layout with horizobtal scrollable datatable
     //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // datatable layout without  horizobtal scroll(used when bootstrap dropdowns used in the datatable cells)
@@ -492,25 +492,27 @@ jQuery.fn.dataTableExt.oApi.fnMultiFilter = function( oSettings, oData ) {
     this.oApi._fnReDraw( oSettings );
 };
 jQuery.fn.dataTableExt.afnFiltering.push(
-    function( oSettings,aFilterData, aData, iDataIndex,data,j) {
+    function( oSettings,aFilterData, iDataIndex,data,j) {
         var columns = oSettings.aoColumns;
         for (var i = 0; i < columns.length; i++) {
             var column = columns[i];
             if(column.filter&&column.filter.type==='input'&&column.sSearch&&column.sSearch&&aFilterData[i].indexOf(column.sSearch)===-1){
+                console.log(column.sSearch)
+                console.log(aFilterData[i])
                 return false;
             }
             if(column.filter&&column.filter.type==='range'){
-                if((column.max && aData[column.name] > column.max)||(column.min && aData[column.name] < column.min)){
+                if((column.max && data[column.name] > column.max)||(column.min && data[column.name] < column.min)){
                     return false;
                 }
             }
             if(column.filter&&column.filter.type==='date'){
-                var iVersion = Number(moment(aData[column.name]).format('X'));
+                var iVersion = Number(moment(data[column.name]).format('X'));
                 if((column.max && iVersion > column.max)||(column.min && iVersion < column.min)){
                     return false;
                 }
             }
-            if(column.filter&&column.filter.type==='select'&&column.sSearch&&column.sSearch!=aData[column.name].toString()) {
+            if(column.filter&&column.filter.type==='select'&&column.sSearch&&column.sSearch!=data[column.name].toString()) {
                 return false;
             }
         }

@@ -1,0 +1,12 @@
+
+  .login-wrapper { position: absolute; top: 50%; left: 50%; margin-left: -200px; margin-top: -220px; }
+  .login { position: fixed; width: 100%; height: 100%; background: url("../img/login_bg.jpg") no-repeat center center fixed; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover; background-size: cover; }
+  .login h3 { text-align: center; font-size: 28px; font-weight: 400 !important; margin-bottom: 40px; }
+  .login .copyright { text-align: center; padding: 10px; color: #7a8ca5; font-size: 14px; }
+  .login .content { background-color: #eceef1; width: 400px; padding: 40px; overflow: hidden; position: relative; -moz-box-shadow: 0 0 20px #999; -webkit-box-shadow: 0 0 20px #999; box-shadow: 0 0 20px #999; }
+  .login .content .input-group { margin: 10px 0; }
+  .login .content .input-group .input-group-addon, .login .content .input-group .form-control { border-color: #cecece; border-width: 1px; }
+  .login .content .input-group .input-group-addon{padding: 9px 16px 10px;}
+  .login .content .input-group i { font-size: 18px; width: 18px; }
+  .login .content .form-actions { padding-bottom: 30px; }
+  .login .content .rememberme { margin-left: 8px; margin-top: 20px; margin-bottom: 20px; color: #8290a3; }
