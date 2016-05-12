@@ -1,5 +1,5 @@
 require('font-awesome/css/font-awesome.min.css');
-require('bootstrap/dist/css/bootstrap.min.css');
+require('bootstrapCss');
 require('sweetalert/dist/sweetalert.css');
 
 require('./css/components.min.css');

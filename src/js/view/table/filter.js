@@ -40,7 +40,18 @@ module.exports = {
         $('#table thead select').selectpicker({width:'auto'});
       }
       if (this.settings.filter.date){
-        $('#table thead .date-filter input').daterangepicker();
+        $('#table thead .date-filter input').daterangepicker({
+          autoUpdateInput: false,
+          locale: {
+            cancelLabel: '清空'
+          }
+        });
+        $('#table thead .date-filter input').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+        });
+        $('#table thead .date-filter input').on('cancel.daterangepicker', function(ev, picker) {
+            $(this).val('');
+        });
       }
     }
   },

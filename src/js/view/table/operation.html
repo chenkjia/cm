@@ -1,8 +1,8 @@
 <% var operatlist = [{label:'查看',name:'watch',icon:'eye'},{label:'编辑',name:'update',icon:'edit'},{label:'删除',name:'delete',icon:'trash-o'}] %>
 <% operatlist = _.filter(operatlist,function(item){return operation.indexOf(item['name'])>=0;}) %>
 
-<% if(cuntomOperation){ %>
-<% operatlist = _.concat(operatlist,cuntomOperation) %>
+<% if(customOperation){ %>
+<% operatlist = _.concat(operatlist,customOperation) %>
 <% } %>
 
 <% for(i in operatlist){ %>

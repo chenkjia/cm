@@ -8,10 +8,10 @@ module.exports = {
     toolbar: ['create'],
     operation: ['update','delete'],
     url:{
-      list: 'classes/dev',
-      create: 'classes/dev',
-      update: 'classes/dev',
-      delete: 'classes/dev',
+      list: 'classes/area',
+      create: 'classes/area',
+      update: 'classes/area',
+      delete: 'classes/area',
     },
     popup:{
       size: null
@@ -23,8 +23,6 @@ module.exports = {
       {
         data: "name",
         title: "区域名称",
-        create: true,
-        update: true,
         popup:{
           modal: ['create','update'],
           type: 'input',
@@ -35,10 +33,34 @@ module.exports = {
         filter:{
           type: 'input'
         },
+      },{
+        data: "address",
+        title: "地址",
+        popup:{
+          modal: ['create','update'],
+          type: 'input',
+          rule:{
+            required: true
+          }
+        },
+        filter:{
+          type: 'input'
+        },
+      },{
+        data: "remark",
+        title: "备注",
+        defaultContent: '',
+        popup:{
+          modal: ['create','update'],
+          type: 'input'
+        },
+        filter:{
+          type: 'input'
+        }
       }
     ],
     customEvents:{},
-    cuntomOperation:[],
+    customOperation:[],
     customFunctions:{
     },
   })),

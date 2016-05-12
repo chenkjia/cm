@@ -8,13 +8,14 @@ module.exports = {
     toolbar: ['create'],
     operation: ['update','delete'],
     url:{
-      list: 'classes/dev',
-      create: 'classes/dev',
-      update: 'classes/dev',
-      delete: 'classes/dev',
+      list: 'classes/building',
+      create: 'classes/building',
+      update: 'classes/building',
+      delete: 'classes/building',
     },
     popup:{
-      size: null
+      size: null,
+      select:true
     },
     filter:{
       select:true
@@ -23,8 +24,6 @@ module.exports = {
       {
         data: "name",
         title: "楼房名称",
-        create: true,
-        update: true,
         popup:{
           modal: ['create','update'],
           type: 'input',
@@ -35,10 +34,54 @@ module.exports = {
         filter:{
           type: 'input'
         },
+      },{
+        data: "address",
+        title: "地址",
+        popup:{
+          modal: ['create','update'],
+          type: 'input',
+          rule:{
+            required: true
+          }
+        },
+        filter:{
+          type: 'input'
+        },
+      },{
+        data: "area",
+        title: "所属区域",
+        type: "select",
+        pointer: "area",
+        popup:{
+          modal: ['create','update'],
+          type: 'select',
+          rule:{
+            required: true
+          }
+        },
+        filter:{
+          type: 'select'
+        },
+        option:{
+          url:'classes/area',
+          value:'objectId',
+          label:'name'
+        }
+      },{
+        data: "remark",
+        title: "备注",
+        defaultContent: '',
+        popup:{
+          modal: ['create','update'],
+          type: 'input'
+        },
+        filter:{
+          type: 'input'
+        }
       }
     ],
     customEvents:{},
-    cuntomOperation:[],
+    customOperation:[],
     customFunctions:{
     },
   })),

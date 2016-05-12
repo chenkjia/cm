@@ -11,6 +11,8 @@
       <div class="col-md-8">
         <% if(item.popup.type==='input'){ %>
           <input name="<%= item.data %>" type="text" value="<%= data[item.data] %>" class="form-control"/>
+        <% } else if(item.popup.type==='date'){ %>
+          <input name="<%= item.data %>" type="text" value="<%= data[item.data] %>" class="form-control form-date"/>
         <% } else if(item.popup.type==='select'){ %>
           <select name="<%= item.data %>" class="form-control form-select">
             <% if(data[item.data]===undefined){ %>
@@ -19,7 +21,7 @@
               </option>
             <% } %>
             <% for(j in item.options){ %>
-              <% if(item.options[j].value===data[item.data]){ %>
+              <% if((!item.pointer&&item.options[j].value===data[item.data])||(item.pointer&&item.options[j].value===data[item.data].objectId)){ %>
               <option value="<%= item.options[j].value %>" data-subtext="<%= item.options[j].subtext %>" selected>
               <% } else { %>
               <option value="<%= item.options[j].value %>" data-subtext="<%= item.options[j].subtext %>" >
@@ -56,4 +58,5 @@
       </div>
     </div>
   <%}%>
+  <button type="submit" style="display:none;"></button>
 </form>

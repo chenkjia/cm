@@ -502,7 +502,7 @@ jQuery.fn.dataTableExt.afnFiltering.push(
                 return false;
             }
             if(column.filter&&column.filter.type==='range'){
-                if((column.max && data[column.name] > column.max)||(column.min && data[column.name] < column.min)){
+                if((column.max && Number(aFilterData[i]) > column.max)||(column.min && Number(aFilterData[i]) < column.min)){
                     return false;
                 }
             }
@@ -512,8 +512,13 @@ jQuery.fn.dataTableExt.afnFiltering.push(
                     return false;
                 }
             }
-            if(column.filter&&column.filter.type==='select'&&column.sSearch&&column.sSearch!=data[column.name].toString()) {
-                return false;
+            if(column.filter&&column.filter.type==='select'&&column.sSearch) {
+                if (!column.pointer&&column.sSearch!=data[column.name].toString()) {
+                    return false;
+                }
+                if (column.pointer&&column.sSearch!=data[column.name].objectId) {
+                    return false;
+                }
             }
         }
         return true;

@@ -33,11 +33,11 @@ module.exports = {
             toolbar:settings.toolbar
           }));
         }
-        if (settings.batch||settings.cuntomBatch) {
+        if (settings.batch||settings.customBatch) {
           $('#table').addClass('table-checkable');
           $('#table_wrapper .dataTables-batch').html(batchTpl({
             batch:settings.batch||[],
-            cuntomBatch:settings.cuntomBatch||[]
+            customBatch:settings.customBatch||[]
           }));
         }
       },
@@ -86,6 +86,7 @@ module.exports = {
           className: 'green',
           callback: function(event) {
             $('#popup-form').submit();
+            return false;
           }
         }
       }
@@ -118,15 +119,21 @@ module.exports = {
     if(popup.switch){
       $('#popup-form .form-switch').bootstrapSwitch();
     }
+    if(popup.date){
+      $('#popup-form .form-date').daterangepicker({
+          "singleDatePicker": true,
+          "maxDate":moment().format('YYYY-MM-DD')
+      });
+    }
   },
   validate:function(columns) {
     var rules = {};
+    var form = $('#popup-form');
     _.forEach(columns,function(column) {
       if (column.popup.rule) {
         rules[column.data] = column.popup.rule;
       }
     });
-    var form = $('#popup-form');
     var that = this;
     return form.validate({
       errorElement: 'span',
@@ -141,14 +148,26 @@ module.exports = {
         $(element).closest('.form-group').removeClass('has-error');
       },
       submitHandler: function() {
+        var params = Common.formFormat(form.serializeArray());
+        _.forEach(columns,function(column) {
+          if (column.pointer) {
+            params[column.data] = {
+              "__type": "Pointer",
+              "className": column.pointer,
+              "objectId": params[column.data]
+            };
+          }
+        });
         $.ajax({
           url: form.attr('action'),
           type: form.attr('method'),
+          contentType:'application/json',
           dataType: 'json',
-          data: Common.formFormat(form.serializeArray()),
+          data: JSON.stringify(params)
         })
         .done(function(data) {
           that.table.api().ajax.reload(null,false);
+          $('.bootbox').modal('hide');
         });
         return false;
       }
@@ -243,19 +262,20 @@ module.exports = {
           if(!_.isObject(data)){
             data = JSON.parse(data);
           }
-          if (column.option.value||column.option.label) {
-            column.options = _.map(data.data,function (option) {
-              return {
-                value: option[column.option.value],
-                label: option[column.option.label]
-              }
-            });
-          }
+          var value = column.option.value||'value';
+          var label = column.option.label||'label';
+          column.options = _.map(data.results,function (option) {
+            option.value = option[value];
+            option.label = option[label];
+            option.subtext = _.join(pinyin(option[label],{style: pinyin.STYLE_FIRST_LETTER}),'');
+            return option
+          });
         });
       }
       if(column.type==='select'){
         column['render'] = function(data, type, full, meta) {
-          return data===null?'':_.find(meta.settings.aoColumns[meta.col].options,['value',data]).label;
+          var column = meta.settings.aoColumns[meta.col];
+          return data===null?'':_.find(column.options,['value',column.pointer?data.objectId:data]).label;
         };
       }
       if(column.type==='switch'){
@@ -294,7 +314,7 @@ module.exports = {
         }
       });
     }
-    if((settings.batch||settings.cuntomBatch)&&_.findIndex(columns,['name','checkbox'])==-1){
+    if((settings.batch||settings.customBatch)&&_.findIndex(columns,['name','checkbox'])==-1){
       columns.unshift({
         name: 'checkbox',
         data: 'id',
@@ -307,7 +327,7 @@ module.exports = {
         }
       });
     }
-    if(settings.operation||settings.cuntomOperation){
+    if(settings.operation||settings.customOperation){
       columns.push({
         name: "operation",
         title: "操作",
@@ -319,7 +339,7 @@ module.exports = {
           return operationTpl({
             operation:settings.operation||[],
             row:meta.row,
-            cuntomOperation:settings.cuntomOperation||[]
+            customOperation:settings.customOperation||[]
           });
         }
       });

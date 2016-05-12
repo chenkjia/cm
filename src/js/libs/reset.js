@@ -1,7 +1,8 @@
 // bootbox
 bootbox.setDefaults({  
   locale: "zh_CN",  
-  // show: true,  
+  // show: true,
+  container: '#main',
   backdrop: true, 
   animate: false, 
 });

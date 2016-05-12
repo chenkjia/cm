@@ -1,6 +1,6 @@
 <% var batchlist = [{label:'编辑',name:'update',icon:'edit'},{label:'删除',name:'delete',icon:'trash-o'}] %>
 <% batchlist = _.filter(batchlist,function(item){return batch.indexOf(item['name'])>=0;}) %>
-<% batchlist = _.concat(batchlist,cuntomBatch); %>
+<% batchlist = _.concat(batchlist,customBatch); %>
 
 <div class="btn-group">
   <div data-toggle="dropdown" aria-expanded="true" class="btn green dropdown-toggle">
